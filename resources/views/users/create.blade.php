@@ -42,7 +42,7 @@
 	            <div class="form-group">
 	               <label for="linkedin">Linkedin</label><br />
                    https://www.linkedin.com/in/
-	               <input type="text" name="linkedin" id="linkedin" class="form-control">
+	               <input type="url" name="linkedin" id="linkedin" class="form-control">
 	            </div>
 
 	            <div class="form-group text-center">
