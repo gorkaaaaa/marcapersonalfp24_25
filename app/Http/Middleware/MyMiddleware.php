@@ -13,9 +13,9 @@ class MyMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $parametro): Response
     {
-        if ($request->route()->hasParameter('id') && $request->route()->parameter('id') > 9) {
+        if ($request->route()->hasParameter('id') && $request->route()->parameter('id') > $parametro) {
             return redirect('/');
         }
         return $next($request);
