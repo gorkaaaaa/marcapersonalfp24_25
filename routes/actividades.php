@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActividadController;
 
+
 Route::get('actividades', [ActividadController::class, 'getIndex']);
 
 Route::get('actividades/show/{id}', [ActividadController::class, 'getShow'])->where('id', '[0-9]+');
