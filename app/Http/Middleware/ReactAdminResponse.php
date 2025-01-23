@@ -27,6 +27,21 @@ class ReactAdminResponse
             abort_unless(property_exists($request->route()->controller, 'modelclass'), 500, "It must exists a modelclass property in the controller.");
             $modelClassName = $request->route()->controller->modelclass;
             $response->header('X-Total-Count',$modelClassName::count());
+            $query = $modelClassName::query();
+
+            // $filterColumns=$modelClassName->getFillable();
+            // $filterValue = $request->q;
+            // if ($filterValue) {
+            //     foreach ($filterColumns as $column) {
+            //             $query->orWhere($column, 'like', '%' . $filterValue . '%');
+            //             $response->setData($query->get());
+            //     }
+            // }
+
+            $query->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+            ->paginate($request->perPage);
+            $response->setData($query->get());
+
         }
         try {
             if(is_callable([$response, 'getData'])) {
