@@ -58,11 +58,16 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         try {
-            $user->delete();
+            $user::count();
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()], 400);
         }
+    }
+
+    public function count ()
+    {
+        return response()->json(['count:'=> User::count()]);
     }
 }
