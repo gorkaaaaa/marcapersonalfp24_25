@@ -54,6 +54,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function administrador()
+    {
+        return $this->hasOne(Administrador::class);
+    }
+
     public function curriculo()
     {
         return $this->hasOne(Curriculo::class);
