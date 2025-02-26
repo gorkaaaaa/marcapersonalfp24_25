@@ -6,14 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FamiliaProfesionalResource;
 use App\Models\FamiliaProfesional;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class FamiliaProfesionalController extends Controller
+class FamiliaProfesionalController extends Controller implements HasMiddleware
 {
     public $modelclass = FamiliaProfesional::class;
 
     /**
      * Display a listing of the resource.
      */
+
+     public static function middleware(): array
+     {
+         return [
+             new Middleware('auth:sanctum', except: ['index', 'show']),
+         ];
+     }
+
+
     public function index(Request $request)
     {
         $query = $request->attributes->has('queryWithParameters')
