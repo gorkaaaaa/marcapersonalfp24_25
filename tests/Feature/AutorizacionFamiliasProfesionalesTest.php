@@ -27,11 +27,8 @@ class AutorizacionFamiliasProfesionalesTest extends TestCase
         return $this->get(self::$apiurl_familia . "/{$familia->id}");
     }
 
-    public function familiaStore($admin = false) : TestResponse
+    public function familiaStore() : TestResponse
     {
-        $familia = $admin
-        ? FamiliaProfesional::create(['codigo' => 'ABC', 'nombre'=>'ejemplo'])
-            : FamiliaProfesional::inRandomOrder()->first();
         $data = [
             'codigo' => 'BCA',
             'nombre' => 'ejemplo'
@@ -39,23 +36,19 @@ class AutorizacionFamiliasProfesionalesTest extends TestCase
         return $this->postJson(self::$apiurl_familia, $data);
     }
 
-    public function familiaUpdate($admin = false) : TestResponse
+    public function familiaUpdate() : TestResponse
     {
-        $familia = $admin
-        ? FamiliaProfesional::create(['codigo' => 'ABC', 'nombre'=>'ejemplo'])
-            : FamiliaProfesional::inRandomOrder()->first();
+        $familia = FamiliaProfesional::inRandomOrder()->first();
         $data = [
-            'codigo' => 'BCA',
+            'codigo' => 'DFG',
             'nombre' => 'ejemplo'
         ];
         return $this->putJson(self::$apiurl_familia . "/{$familia->id}", $data);
     }
 
-    public function familiaDelete($admin = false) : TestResponse
+    public function familiaDelete() : TestResponse
     {
-        $familia = $admin
-            ? FamiliaProfesional::create(['codigo' => 'ABC', 'nombre'=>'ejemplo'])
-            : FamiliaProfesional::inRandomOrder()->first();
+        $familia = FamiliaProfesional::inRandomOrder()->first();
         return $this->delete(self::$apiurl_familia . "/{$familia->id}");
     }
 
@@ -91,13 +84,13 @@ class AutorizacionFamiliasProfesionalesTest extends TestCase
         $response = $this->familiaShow();
         $response->assertSuccessful();
 
-        $response = $this->familiaStore($admin = true);
+        $response = $this->familiaStore();
         $response->assertSuccessful();
 
-        $response = $this->familiaUpdate($admin = true);
+        $response = $this->familiaUpdate();
         $response->assertSuccessful();
 
-         $response = $this->familiaDelete($admin = true);
+         $response = $this->familiaDelete();
          $response->assertSuccessful();
     }
 
